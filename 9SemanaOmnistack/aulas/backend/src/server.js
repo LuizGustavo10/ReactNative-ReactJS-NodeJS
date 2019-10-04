@@ -1,5 +1,8 @@
 const express = require('express'); //importando dependência
 const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
+
 const routes = require('./routes'); //pasta atual importando
 
 //criando aplicação
@@ -18,7 +21,9 @@ mongoose.connect('mongodb://omnistack:omnistack@omnistack-shard-00-00-ajpwy.mong
 //req.query = acessar query params (para filtros)
 //req.params = acessar route params (para edição/delete)
 //req.body = Acessar corpo da Requisição (para criação e edição)
+app.use(cors()); //ali dentro é só colocar http://localhost:3333 para restringir o acesso
 app.use(express.json()); //avisando que está utilizando json
+app.use('/files', express.static(path.resolve(__dirname,'..', 'uploads'))); //express retornando arquivo estatíco / upload
 app.use(routes);
 
 
